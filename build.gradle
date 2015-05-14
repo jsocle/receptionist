@@ -31,6 +31,7 @@ sourceSets {
 }
 
 apply plugin: 'application'
+applicationName = 'app'
 mainClassName = 'com.github.jsocle.receptionist.ReceptionistPackage'
 
 

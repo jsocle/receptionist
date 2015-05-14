@@ -1,1 +1,1 @@
-web: ./build/install/jsocle-receptionist/bin/jsocle-receptionist
+web: ./build/install/app/bin/app
