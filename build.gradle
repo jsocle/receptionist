@@ -32,3 +32,6 @@ sourceSets {
 
 apply plugin: 'application'
 mainClassName = 'com.github.jsocle.receptionist.ReceptionistPackage'
+
+
+task stage(dependsOn: ['clean', 'installApp'])

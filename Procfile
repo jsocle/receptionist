@@ -1,1 +1,1 @@
-web: ./gradlew run
+web: ./build/install/jsocle-receptionist/bin/jsocle-receptionist
