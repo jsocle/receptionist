@@ -3,7 +3,7 @@ package com.github.jsocle.receptionist
 import com.github.jsocle.JSocle
 import com.github.jsocle.html.elements.Html
 
-public fun layout(): Html {
+fun layout(): Html {
     return Html(lang = "en") {
         head {
             meta { attributes["charset"] = "utf-8" }
@@ -58,7 +58,7 @@ public fun layout(): Html {
     }
 }
 
-public object app : JSocle() {
+object app : JSocle() {
     init {
         route("/") { ->
             return@route layout()

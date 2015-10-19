@@ -1,7 +1,5 @@
-version = '0.0.1'
-
 buildscript {
-    ext.kotlin_version = '0.11.91.4'
+    ext.kotlin_version = '0.14.449'
     repositories {
         mavenCentral()
     }
@@ -20,10 +18,8 @@ repositories {
 }
 
 dependencies {
-    compile(
-            "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-            'com.github.jsocle:jsocle:c6c7ab69c7'
-    )
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.github.jsocle:jsocle:0.0.9'
 }
 
 sourceSets {
@@ -31,7 +27,9 @@ sourceSets {
 }
 
 apply plugin: 'application'
+//noinspection GroovyUnusedAssignment
 applicationName = 'app'
+//noinspection GroovyUnusedAssignment
 mainClassName = 'com.github.jsocle.receptionist.ReceptionistPackage'
 
 
