@@ -37,7 +37,7 @@ object loginApp : Blueprint() {
                     div(class_ = "main") {
                         h3 {
                             +"Please Log In, or "
-                            a(href = "#", text_ = "Sign Up")
+                            a(href = signUpApp.signUp.url(), text_ = "Sign Up")
                         }
                         div(class_ = "row") {
                             div(class_ = "col-xs-6 col-sm-6 col-md-6") {
@@ -53,7 +53,7 @@ object loginApp : Blueprint() {
                         }
                         form(action = login.url(), method = Request.Method.POST.name()) {
                             div(class_ = "form-group") {
-                                label(text_ = "Username or email") { attributes["for"] = form.id.name }
+                                label(text_ = "ID") { attributes["for"] = form.id.name }
                                 +form.id.render { class_ = "form-control"; id = form.id.name }
                             }
                             div(class_ = "form-group") {

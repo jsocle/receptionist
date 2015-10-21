@@ -6,6 +6,7 @@ import com.github.jsocle.hibernate.Hibernate
 import com.github.jsocle.hibernate.HibernateProperties
 import com.github.jsocle.receptionist.blueprints.loginApp
 import com.github.jsocle.receptionist.blueprints.mainApp
+import com.github.jsocle.receptionist.blueprints.signUpApp
 import com.github.jsocle.receptionist.models.User
 import com.github.jsocle.request
 import org.hibernate.cfg.AvailableSettings
@@ -20,11 +21,12 @@ object app : JSocle(config) {
     init {
         register(mainApp)
         register(loginApp)
+        register(signUpApp)
     }
 
     override fun onBeforeRequest(): Any? {
         if (g.user == null) {
-            if (loginApp !in request.handlerCallStack) {
+            if (loginApp !in request.handlerCallStack && signUpApp !in request.handlerCallStack) {
                 return redirect(loginApp.login.url())
             }
         }
