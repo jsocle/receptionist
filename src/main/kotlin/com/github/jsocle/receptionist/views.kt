@@ -10,7 +10,7 @@ fun defaultLayout(css: List<String> = listOf(), layout: Body.() -> Unit): Html {
             meta(httpEquiv = "X-UA-Compatible", content = "IE=edge")
             meta(name = "description", content = "")
             meta(name = "author", content = "")
-            title(text_ = "Starter Template for Bootstrap")
+            title(text_ = "Receptionist")
             link(href = "/static/bootstrap-3.3.4-dist/css/bootstrap.min.css", rel = "stylesheet")
             css.forEach { link(href = it, rel = "stylesheet") }
         }
