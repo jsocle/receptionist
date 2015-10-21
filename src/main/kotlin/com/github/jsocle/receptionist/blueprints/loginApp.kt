@@ -13,14 +13,13 @@ import com.github.jsocle.request
 import com.github.jsocle.requests.Request
 import com.github.jsocle.requests.handlers.RequestHandler0
 
-class LoginForm : Form() {
-    val id by StringField()
-    val password by PasswordField()
-}
 
 object loginApp : Blueprint() {
     val login: RequestHandler0<Html> = route("/login") { ->
-        val form = LoginForm()
+        val form = object : Form() {
+            val id by StringField()
+            val password by PasswordField()
+        }
         if (request.method == Request.Method.POST) {
             val user = app.db.session
                     .createQuery("from User where userId = :userId and password = :password")

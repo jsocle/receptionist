@@ -13,7 +13,7 @@ import org.hibernate.cfg.AvailableSettings
 object app : JSocle(config) {
     val db = Hibernate(
             this,
-            HibernateProperties("jdbc:h2:mem:jsocle-receptionist", Hbm2ddlAuto.Create),
+            HibernateProperties("jdbc:h2:mem:jsocle-receptionist", Hbm2ddlAuto.CreateDrop),
             listOf(User::class)
     ).apply { properties[AvailableSettings.SHOW_SQL] = "true" }
 

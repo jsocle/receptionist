@@ -4,16 +4,21 @@ import com.github.jsocle.receptionist.blueprints.mainApp
 import com.github.jsocle.receptionist.models.User
 import com.github.jsocle.requests.Request
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 
 class AppTest {
-    @Test
-    fun testLoginRequire() {
+    @Before
+    fun before() {
+        app.db.reload()
         app.db.session {
             it.persist(User(userId = "john", password = "john"))
             it.flush()
         }
+    }
 
+    @Test
+    fun testLoginRequire() {
         val client = app.client
         // test login controller is not forwarded.
         Assert.assertEquals(loginApp.login.url(), client.get(loginApp.login.url()).url)
