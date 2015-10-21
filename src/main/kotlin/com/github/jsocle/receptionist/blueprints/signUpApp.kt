@@ -5,6 +5,7 @@ import com.github.jsocle.form.Field
 import com.github.jsocle.form.Form
 import com.github.jsocle.form.fields.PasswordField
 import com.github.jsocle.form.fields.StringField
+import com.github.jsocle.form.validators.Required
 import com.github.jsocle.html.elements.Div
 import com.github.jsocle.html.elements.Html
 import com.github.jsocle.html.extentions.addClass
@@ -14,7 +15,7 @@ import com.github.jsocle.requests.handlers.RequestHandler0
 
 fun formGroup(field: Field<*, *>, layout: Div.() -> Unit): Div = Div(class_ = "form-group") {
     if (field.errors.isNotEmpty()) {
-        addClass("has-warning")
+        addClass("has-error")
     }
     layout()
     field.errors.forEach {
@@ -25,9 +26,11 @@ fun formGroup(field: Field<*, *>, layout: Div.() -> Unit): Div = Div(class_ = "f
 object signUpApp : Blueprint() {
     val signUp: RequestHandler0<Html> = route("/signUp") { ->
         val form = object : Form() {
-            val id by StringField()
+            val id by StringField(validators = arrayOf(Required()))
             val password by PasswordField()
         }
+
+        form.validateOnPost()
 
         defaultLayout(css = listOf("/static/css/login.css")) {
             div(class_ = "container") {
