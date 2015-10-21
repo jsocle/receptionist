@@ -1,6 +1,8 @@
 package com.github.jsocle.receptionist
 
-abstract class Config {
+import com.github.jsocle.JSocleConfig
+
+abstract class Config : JSocleConfig(secretKey = "Very Secret Key ;)".toByteArray()) {
     val port: Int
         get() = (System.getenv("PORT") ?: "8080").toInt()
 }
@@ -8,7 +10,7 @@ abstract class Config {
 class LocalConfig : Config() {
 }
 
-fun buildConfig(): LocalConfig {
+fun buildConfig(): Config {
     return LocalConfig()
 }
 
