@@ -37,7 +37,7 @@ object loginApp : Blueprint() {
                 div(class_ = "row") {
                     div(class_ = "main") {
                         h3 {
-                            +"Please Log In, or"
+                            +"Please Log In, or "
                             a(href = "#", text_ = "Sign Up")
                         }
                         div(class_ = "row") {
