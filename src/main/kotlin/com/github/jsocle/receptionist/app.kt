@@ -36,5 +36,9 @@ object app : JSocle(config) {
 
 
 fun main(args: Array<String>) {
+    app.db.session {
+        it.persist(User(userId = "steve", password = "1"))
+        it.flush()
+    }
     app.run(config.port)
 }

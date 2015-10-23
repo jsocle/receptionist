@@ -2,6 +2,7 @@ package com.github.jsocle.receptionist
 
 import com.github.jsocle.html.elements.Body
 import com.github.jsocle.html.elements.Html
+import com.github.jsocle.receptionist.blueprints.mainApp
 
 fun defaultLayout(css: List<String> = listOf(), layout: Body.() -> Unit): Html {
     return Html(lang = "en") {
@@ -35,7 +36,7 @@ fun layout(): Html {
                         span(class_ = "icon-bar")
                         span(class_ = "icon-bar")
                     }
-                    a(class_ = "navbar-brand", href = "#", text_ = "방문 예약 시스템")
+                    a(class_ = "navbar-brand", href = mainApp.index.url(), text_ = "방문 예약 시스템")
                 }
                 div(id = "navbar", class_ = "collapse navbar-collapse") {
                     ul(class_ = "nav navbar-nav") {
