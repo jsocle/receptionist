@@ -2,7 +2,11 @@ package com.github.jsocle.receptionist
 
 import com.github.jsocle.html.elements.Body
 import com.github.jsocle.html.elements.Html
+import com.github.jsocle.html.elements.Ul
+import com.github.jsocle.html.extentions.addClass
 import com.github.jsocle.receptionist.blueprints.mainApp
+import com.github.jsocle.receptionist.blueprints.reservationApp
+import com.github.jsocle.request
 
 fun defaultLayout(css: List<String> = listOf(), layout: Body.() -> Unit): Html {
     return Html(lang = "en") {
@@ -23,7 +27,14 @@ fun defaultLayout(css: List<String> = listOf(), layout: Body.() -> Unit): Html {
     }
 }
 
-fun layout(): Html {
+fun Ul.navItem(text: String, url: String, active: Boolean) {
+    li {
+        if (active) addClass("active")
+        a(href = url, text_ = text)
+    }
+}
+
+fun layout(content: Body.() -> Unit): Html {
     return defaultLayout {
         nav(class_ = "navbar navbar-inverse navbar-fixed-top") {
             div(class_ = "container") {
@@ -40,28 +51,14 @@ fun layout(): Html {
                 }
                 div(id = "navbar", class_ = "collapse navbar-collapse") {
                     ul(class_ = "nav navbar-nav") {
-                        li(class_ = "active") {
-                            a(href = "#", text_ = "Home")
-                        }
-                        li {
-                            a(href = "#about", text_ = "About")
-                        }
-                        li {
-                            a(href = "#contact", text_ = "Contact")
-                        }
+                        navItem(
+                                "추가", reservationApp.new_.url(),
+                                arrayListOf(reservationApp.edit, reservationApp.new_).containsRaw(request.handler)
+                        )
                     }
                 }
             }
         }
-        div(class_ = "container") {
-            div(class_ = "starter-template") {
-                h1(text_ = "Bootstrap starter template")
-                p(class_ = "lead") {
-                    +"Use this document as a way to quickly start any new project."
-                    br()
-                    +"All you get is this text and a mostly barebones HTML document."
-                }
-            }
-        }
+        content()
     }
 }

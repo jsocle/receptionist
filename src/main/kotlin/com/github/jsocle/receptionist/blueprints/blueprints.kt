@@ -4,5 +4,5 @@ import com.github.jsocle.Blueprint
 import com.github.jsocle.receptionist.layout
 
 object mainApp : Blueprint() {
-    val index = route("/") { -> layout() }
+    val index = route("/") { -> layout {} }
 }

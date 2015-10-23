@@ -7,9 +7,9 @@ import com.github.jsocle.form.validators
 import com.github.jsocle.form.validators.Required
 import com.github.jsocle.hibernate.commit
 import com.github.jsocle.receptionist.app
-import com.github.jsocle.receptionist.defaultLayout
 import com.github.jsocle.receptionist.formGroup
 import com.github.jsocle.receptionist.g
+import com.github.jsocle.receptionist.layout
 import com.github.jsocle.receptionist.models.Reservation
 import com.github.jsocle.request
 import com.github.jsocle.requests.Request
@@ -46,7 +46,7 @@ object reservationApp : Blueprint() {
             return redirect(edit.url(reservation.id!!))
         }
 
-        return defaultLayout {
+        return layout {
             div(class_ = "container") {
                 div(class_ = "row") {
                     h3(text_ = "예약")
