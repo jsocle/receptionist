@@ -1,5 +1,6 @@
 package com.github.jsocle.receptionist
 
+import com.github.jsocle.receptionist.blueprints.mainApp
 import com.github.jsocle.receptionist.models.User
 import com.github.jsocle.request
 
@@ -33,5 +34,8 @@ object g {
             }
             request.g.remove(PREFIX + "user")
         }
+
+    val defaultReturnTo: String
+        get() = mainApp.index.url()
 }
 

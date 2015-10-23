@@ -4,7 +4,6 @@ import com.github.jsocle.Blueprint
 import com.github.jsocle.form.Form
 import com.github.jsocle.form.fields.PasswordField
 import com.github.jsocle.form.fields.StringField
-import com.github.jsocle.html.elements.Html
 import com.github.jsocle.receptionist.app
 import com.github.jsocle.receptionist.defaultLayout
 import com.github.jsocle.receptionist.g
@@ -15,7 +14,7 @@ import com.github.jsocle.requests.handlers.RequestHandler0
 
 
 object loginApp : Blueprint() {
-    val login: RequestHandler0<Html> = route("/login") { ->
+    val login: RequestHandler0<Any> = route("/login") { ->
         val form = object : Form() {
             val id by StringField()
             val password by PasswordField()
@@ -28,6 +27,7 @@ object loginApp : Blueprint() {
                     .uniqueResult() as User?
             if (user != null) {
                 g.userId = user.id
+                return@route redirect(g.defaultReturnTo)
             }
         }
 
@@ -51,7 +51,7 @@ object loginApp : Blueprint() {
                             hr(class_ = "hr-or")
                             span(class_ = "span-or", text_ = "or")
                         }
-                        form(action = login.url(), method = Request.Method.POST.name()) {
+                        form(action = login.url(), method = Request.Method.POST.name) {
                             div(class_ = "form-group") {
                                 label(text_ = "ID") { attributes["for"] = form.id.name }
                                 +form.id.render { class_ = "form-control"; id = form.id.name }
