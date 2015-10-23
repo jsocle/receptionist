@@ -10,11 +10,7 @@ object g {
     val user: User?
         get() {
             return request.g.getOrSet(PREFIX + "user") {
-                if (userId != null) {
-                    app.db.session.createQuery("from User where id = :id").setParameter("id", userId).uniqueResult()
-                } else {
-                    null
-                }
+                userId?.let { app.db.session.get(User::class.java, it) }
             } as User?
         }
 

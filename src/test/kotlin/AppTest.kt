@@ -1,7 +1,10 @@
+import com.github.jsocle.client.TestClient
 import com.github.jsocle.receptionist.app
 import com.github.jsocle.receptionist.blueprints.loginApp
 import com.github.jsocle.receptionist.blueprints.mainApp
+import com.github.jsocle.receptionist.blueprints.reservationApp
 import com.github.jsocle.receptionist.blueprints.signUpApp
+import com.github.jsocle.receptionist.models.Reservation
 import com.github.jsocle.receptionist.models.User
 import com.github.jsocle.requests.Request
 import org.junit.Assert
@@ -67,5 +70,29 @@ class AppTest {
                             .map { (it as User).userId }
             )
         }
+    }
+
+    @Test
+    fun testReservationApp() {
+        app.db.session {
+            Assert.assertEquals(0, it.createCriteria(Reservation::class.java).list().size)
+        }
+        var client = login()
+        // test creation
+        client.get(
+                reservationApp.new_.url("startAt" to "2016-01-01 09:00", "endAt" to "2016-01-01 10:00"),
+                method = Request.Method.POST
+        )
+
+        app.db.session {
+            val reservation = it.createCriteria(Reservation::class.java).uniqueResult() as Reservation
+            Assert.assertEquals(1, reservation)
+        }
+    }
+
+    private fun login(): TestClient {
+        val client = app.client
+        client.get(loginApp.login.url("id" to "john", "password" to "john"), method = Request.Method.POST)
+        return client
     }
 }

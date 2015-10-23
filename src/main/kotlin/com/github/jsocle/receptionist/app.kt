@@ -6,7 +6,9 @@ import com.github.jsocle.hibernate.Hibernate
 import com.github.jsocle.hibernate.HibernateProperties
 import com.github.jsocle.receptionist.blueprints.loginApp
 import com.github.jsocle.receptionist.blueprints.mainApp
+import com.github.jsocle.receptionist.blueprints.reservationApp
 import com.github.jsocle.receptionist.blueprints.signUpApp
+import com.github.jsocle.receptionist.models.Reservation
 import com.github.jsocle.receptionist.models.User
 import com.github.jsocle.request
 import org.hibernate.cfg.AvailableSettings
@@ -15,13 +17,14 @@ object app : JSocle(config) {
     val db = Hibernate(
             this,
             HibernateProperties("jdbc:h2:mem:jsocle-receptionist", Hbm2ddlAuto.CreateDrop),
-            listOf(User::class)
+            listOf(User::class, Reservation::class)
     ).apply { properties[AvailableSettings.SHOW_SQL] = "true" }
 
     init {
         register(mainApp)
         register(loginApp)
         register(signUpApp)
+        register(reservationApp, "/reservation")
     }
 
     override fun onBeforeRequest(): Any? {
