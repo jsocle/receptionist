@@ -6,6 +6,7 @@ import com.github.jsocle.form.fields.PasswordField
 import com.github.jsocle.form.fields.StringField
 import com.github.jsocle.receptionist.app
 import com.github.jsocle.receptionist.defaultLayout
+import com.github.jsocle.receptionist.formGroup
 import com.github.jsocle.receptionist.g
 import com.github.jsocle.receptionist.models.User
 import com.github.jsocle.request
@@ -29,6 +30,7 @@ object loginApp : Blueprint() {
                 g.userId = user.id
                 return@route redirect(g.defaultReturnTo)
             }
+            form.id.errors.add("잘못된 아이디나 패스워드 입니다.")
         }
 
         defaultLayout(css = listOf("/static/css/login.css")) {
@@ -52,15 +54,8 @@ object loginApp : Blueprint() {
                             span(class_ = "span-or", text_ = "or")
                         }
                         form(action = login.url(), method = Request.Method.POST.name) {
-                            div(class_ = "form-group") {
-                                label(text_ = "ID") { attributes["for"] = form.id.name }
-                                +form.id.render { class_ = "form-control"; id = form.id.name }
-                            }
-                            div(class_ = "form-group") {
-                                a(class_ = "pull-right", href = "#", text_ = "Forgot password?")
-                                label(text_ = "Password") { attributes["for"] = form.password.name }
-                                +form.password.render { class_ = "form-control"; id = form.password.name }
-                            }
+                            formGroup(form.id)
+                            formGroup(form.password)
                             div(class_ = "checkbox pull-right") {
                                 label {
                                     input(type = "checkbox")

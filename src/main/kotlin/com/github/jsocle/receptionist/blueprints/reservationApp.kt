@@ -11,6 +11,7 @@ import com.github.jsocle.receptionist.defaultLayout
 import com.github.jsocle.receptionist.formGroup
 import com.github.jsocle.receptionist.g
 import com.github.jsocle.receptionist.models.Reservation
+import com.github.jsocle.request
 import com.github.jsocle.requests.Request
 
 object reservationApp : Blueprint() {
@@ -23,15 +24,20 @@ object reservationApp : Blueprint() {
             val endAt by DateField(format = "yyyy-MM-dd HH:mm").apply { validators.add(Required()) }
         }
 
+        val reservation: Reservation
+        if (id == null) {
+            reservation = Reservation().apply { user = g.user!! }
+        } else {
+            reservation = app.db.session.get(Reservation::class.java, id)
+            assert(reservation.user == g.user)
+            if (request.method == Request.Method.GET) {
+                form.startAt.value = reservation.startAt
+                form.endAt.value = reservation.endAt
+            }
+        }
+
         if (form.validateOnPost()) {
             app.db.session.beginTransaction()
-            val reservation: Reservation
-            if (id == null) {
-                reservation = Reservation().apply { user = g.user!! }
-            } else {
-                reservation = app.db.session.get(Reservation::class.java, id)
-                assert(reservation.user == g.user)
-            }
             reservation.apply { startAt = form.startAt.value!!; endAt = form.endAt.value!! }
             if (reservation.id == null) {
                 app.db.session.persist(reservation)
@@ -48,6 +54,7 @@ object reservationApp : Blueprint() {
                     form(method = Request.Method.POST.name, action = if (id == null) new_.url() else edit.url(id)) {
                         formGroup(form.startAt)
                         formGroup(form.endAt)
+                        button(type = "submit", class_ = "btn btn btn-primary", text_ = if (id == null) "신청" else "수정")
                     }
                 }
             }
