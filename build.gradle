@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '0.14.449'
+    ext.kotlin_version = '1.0.0-beta-1038'
     repositories {
         mavenCentral()
     }
@@ -19,8 +19,8 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.github.jsocle:jsocle:0.0.14'
-    compile 'com.github.jsocle:jscole-hibernate:0.0.3'
+    compile 'com.github.jsocle:jsocle:0.0.16'
+    compile 'com.github.jsocle:jscole-hibernate:0.0.4'
     compile 'com.h2database:h2:1.4.189'
 
     testCompile 'junit:junit:4.12'
