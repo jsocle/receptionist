@@ -52,7 +52,7 @@ fun layout(content: Body.() -> Unit): Html {
                 div(id = "navbar", class_ = "collapse navbar-collapse") {
                     ul(class_ = "nav navbar-nav") {
                         navItem(
-                                "추가", reservationApp.new_.url(),
+                                "예약", reservationApp.new_.url(),
                                 arrayListOf(reservationApp.edit, reservationApp.new_).containsRaw(request.handler)
                         )
                     }
