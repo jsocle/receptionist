@@ -8,6 +8,7 @@ import com.github.jsocle.html.extentions.addClass
 import com.github.jsocle.receptionist.blueprints.mainApp
 import com.github.jsocle.receptionist.blueprints.reservationApp
 import com.github.jsocle.request
+import com.github.jsocle.requests.RequestHandler
 
 fun defaultLayout(css: List<String> = listOf(), layout: Body.() -> Unit): Html {
     return Html(lang = "en") {
@@ -54,7 +55,12 @@ fun layout(content: Body.() -> Unit): Html {
                     ul(class_ = "nav navbar-nav") {
                         navItem(
                                 "예약", reservationApp.new_.url(),
-                                arrayListOf(reservationApp.edit, reservationApp.new_).containsRaw(request.handler)
+                                arrayOf(reservationApp.edit, reservationApp.new_)
+                                        .containsRaw<RequestHandler<out Any?>>(request.handler)
+                        )
+                        navItem(
+                                "예약 목록", reservationApp.list.url(),
+                                request.handler == reservationApp.list
                         )
                     }
                 }
