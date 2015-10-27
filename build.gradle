@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.github.jsocle:jsocle:0.0.17'
+    compile 'com.github.jsocle:jsocle:0.0.18'
     compile 'com.github.jsocle:jscole-hibernate:0.0.4'
     compile 'com.h2database:h2:1.4.189'
 

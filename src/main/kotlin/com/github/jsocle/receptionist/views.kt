@@ -1,6 +1,7 @@
 package com.github.jsocle.receptionist
 
 import com.github.jsocle.html.elements.Body
+import com.github.jsocle.html.elements.Div
 import com.github.jsocle.html.elements.Html
 import com.github.jsocle.html.elements.Ul
 import com.github.jsocle.html.extentions.addClass
@@ -60,5 +61,15 @@ fun layout(content: Body.() -> Unit): Html {
             }
         }
         content()
+    }
+}
+
+fun containerLayout(content: Div.() -> Unit): Html {
+    return layout {
+        div(class_ = "container") {
+            div(class_ = "row") {
+                content()
+            }
+        }
     }
 }
