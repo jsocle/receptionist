@@ -34,7 +34,7 @@ apply plugin: 'application'
 //noinspection GroovyUnusedAssignment
 applicationName = 'app'
 //noinspection GroovyUnusedAssignment
-mainClassName = 'com.github.jsocle.receptionist.ReceptionistPackage'
+mainClassName = 'com.github.jsocle.receptionist.AppKt'
 
 
 task stage(dependsOn: ['clean', 'installApp'])
