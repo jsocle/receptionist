@@ -108,7 +108,7 @@ class AppTest {
     fun testMainApp() {
         val client = login()
         client.addReservation("2016-01-01 09:00", "2016-01-01 10:00")
-        val response = client[mainApp.index.url("year" to "2016", "month" to "1")]
+        val response = client.get(mainApp.index.url("year" to "2016", "month" to "1"))
         Assert.assertTrue("09:00 ~ 10:00 john" in response.data)
     }
 

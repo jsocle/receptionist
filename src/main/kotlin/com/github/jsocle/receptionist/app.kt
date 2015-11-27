@@ -4,14 +4,12 @@ import com.github.jsocle.JSocle
 import com.github.jsocle.hibernate.Hbm2ddlAuto
 import com.github.jsocle.hibernate.Hibernate
 import com.github.jsocle.hibernate.HibernateProperties
-import com.github.jsocle.receptionist.blueprints.loginApp
-import com.github.jsocle.receptionist.blueprints.mainApp
-import com.github.jsocle.receptionist.blueprints.reservationApp
-import com.github.jsocle.receptionist.blueprints.signUpApp
+import com.github.jsocle.receptionist.blueprints.*
 import com.github.jsocle.receptionist.models.Reservation
 import com.github.jsocle.receptionist.models.User
 import com.github.jsocle.request
 import org.hibernate.cfg.AvailableSettings
+import java.util.*
 
 object app : JSocle(config) {
     val db = Hibernate(
@@ -40,7 +38,13 @@ object app : JSocle(config) {
 
 fun main(args: Array<String>) {
     app.db.session {
-        it.persist(User(userId = "steve", password = "1"))
+        val steve = User(userId = "steve", password = "1").apply { it.persist(this) }
+        Reservation().apply {
+            user = steve
+            startAt = Date()
+            endAt = startAt.add(Calendar.HOUR, 1)
+            it.persist(this)
+        }
         it.flush()
     }
     app.run(config.port)
