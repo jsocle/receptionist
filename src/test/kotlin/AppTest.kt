@@ -1,3 +1,4 @@
+import com.github.jsocle.client.ClientResponse
 import com.github.jsocle.client.TestClient
 import com.github.jsocle.receptionist.app
 import com.github.jsocle.receptionist.blueprints.loginApp
@@ -82,10 +83,8 @@ class AppTest {
 
         var client = login()
         // test creation
-        client.get(
-                reservationApp.new_.url("startAt" to "2016-01-01 09:00", "endAt" to "2016-01-01 10:00"),
-                method = Request.Method.POST
-        )
+        client.addReservation("2016-01-01 09:00", "2016-01-01 10:00")
+
         var reservationId: Int = 0
         app.db.session {
             val reservation = it.createCriteria(Reservation::class.java).uniqueResult() as Reservation
@@ -103,6 +102,18 @@ class AppTest {
             Assert.assertEquals(newDate(2016, 1, 1, 9, 0, 0).format(), reservation.startAt.format())
             Assert.assertEquals(newDate(2016, 1, 1, 10, 0, 0).format(), reservation.endAt.format())
         }
+    }
+
+    @Test
+    fun testMainApp() {
+        val client = login()
+        client.addReservation("2016-01-01 09:00", "2016-01-01 10:00")
+        val response = client[mainApp.index.url("year" to "2016", "month" to "1")]
+        Assert.assertTrue("09:00 ~ 10:00 john" in response.data)
+    }
+
+    private fun TestClient.addReservation(startAt: String, endAt: String): ClientResponse {
+        return get(reservationApp.new_.url("startAt" to startAt, "endAt" to endAt), method = Request.Method.POST)
     }
 
     private fun login(): TestClient {
