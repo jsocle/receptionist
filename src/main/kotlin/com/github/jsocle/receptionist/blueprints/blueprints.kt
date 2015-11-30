@@ -37,6 +37,7 @@ object mainApp : Blueprint() {
                 .setParameter("lastDate", lastDate.add(Calendar.DATE, 1) /* lastDate is inclusiveRange */)
                 .list() as List<Reservation>
 
+        // 그냥 Comment 달아서 여기서 부터 UI라고 얘기하세요... ㅋㅋㅋ
         containerLayout {
             div {
                 //나쁜 예시 - 그냥 복붓하삼...
