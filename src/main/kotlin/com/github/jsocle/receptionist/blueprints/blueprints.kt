@@ -21,7 +21,7 @@ object mainApp : Blueprint() {
         if (form.year.value == null) {
             form.year.value = LocalDate.now().year
         }
-        if (form.month.value == null || (form.month.value!! < 0 || form.month.value!! > 11)) {
+        if (form.month.value == null || (form.month.value!! < 0 || form.month.value!! > 12)) {
             form.month.value = LocalDate.now().monthValue
         }
         val currentMonth = dateOf(form.year.value!!, form.month.value!! - 1, 1)
