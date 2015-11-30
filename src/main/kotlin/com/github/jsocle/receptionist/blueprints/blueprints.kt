@@ -39,6 +39,7 @@ object mainApp : Blueprint() {
 
         containerLayout {
             div {
+                //나쁜 예시 - 그냥 복붓하삼...
                 nav {
                     ul(class_ = "pager") {
                         listOf(currentMonth.previousMonth to "←", currentMonth to currentMonth.toString("YYYY-MM"), currentMonth.nextMonth to "→").forEach {
@@ -55,6 +56,7 @@ object mainApp : Blueprint() {
                         th(text_ = it.name)
                     }
                 }
+                //좋은 예시 - 이렇게 쓰라고....
                 DateRange(startDate, lastDate).forEachChunked(7) { weekDates ->
                     tr {
                         weekDates.forEach { date ->
